@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Weather API</title>
+    <style>
+        p {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 2.4rem;
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+
+        i {
+            font-size: 2.5rem;
+            padding: 0 1.5rem;
+        }
+
+        li {
+            list-style-type: none;
+            font-size: 1.8rem;
+            /* display:flex; */
+            /* width: 100%; */
+            background: #ffffff;
+            z-index: 999;
+            padding: 1rem 1.5rem;
+            /* height: 1rem; */
+        }
+        li:hover{
+            background: hsl(244, 100%, 97%);
+        }
+
+        input {
+            width: 20rem;
+            height: 3rem;
+            background-color: transparent;
+            color: white;
+            outline: none;
+            font-size: 1.6rem;
+            padding: 0 1rem;
+            border: none;
+        }
+
+        .btn {
+            background-color: transparent;
+            padding: 1rem 2rem;
+            font-size: 1.8rem;
+            background-color: #000;
+            color: white;
+            outline: none;
+            /* border: 1px solid white; */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        body {
+            display: grid;
+            place-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            box-shadow: 1px 1px 3px 1px rgb(219, 219, 219);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+        }
+
+        .Weather-Search{
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .input-field {
+            /* outline: 3px groove black; */
+            /* outline-offset: 5px; */
+            background-color: #000;
+            color: white;
+            z-index: 1111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-top: 30rem !important; */
+            
+        }
+
+        ul {
+            position: absolute;
+            background: #ffffff;
+            padding: 1rem .5rem;
+            box-shadow: 1px 1px 5px 2px rgb(232, 232, 232);
+            max-height: 300px;
+            width: 100%;
+            overflow-y: scroll;
+            /* margin-top: 2rem; */
+            /* z-index: 9999; */
+            /* bottom: 0; */
+            /* width:  ; */
+            /* height: auto; */
+        }
+
+
+        .weather-data-main-content {
+            margin: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            & .discription {
+                padding: 1rem;
+                text-align: center;
+                border-radius: 1rem;
+                margin-top: 1rem;
+                font-size: 2rem !important;
+                color: white !important;
+                background-color: black;
+            }
+        }
+
+
+        .weather-data-main-content .weather-min-max-temp {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-direction: row;
+            margin: 1rem 0;
+        }
+
+        .weather-main-info {
+            display: grid;
+            gap: 2rem;
+            place-content: center;
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: 5rem;
+        }
+
+
+        .weather-info-sub-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* width: 20rem; */
+            padding: .5rem 2rem;
+            box-shadow: 0 0 2px 2px rgb(242, 242, 242);
+            /* border: 1px solid black; */
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container">
+
+        <form class="Weather-Search" autocomplete="off">
+            <div class="input-field">
+                <input type="text" placeholder="Enter City Name" class="weather-search-input" id="search-input">
+                <button class="Weather-Search-btn btn">
+                    submit
+                </button>
+            </div>
+            <div class="result-box">
+                
+            </div>
+        </form>
+        <div class="weather-data-main-content">
+            <h2 class="weather-city-name">City Name</h2>
+            <p class="discription">cloud</p>
+            <div class="weather-icon"></div>
+            <h2 class="weather-main-temp">0</h2>
+            <div class="weather-min-max-temp">
+                <p class="weather-min-temp">0</p>
+                <p class="weather-max-temp">0</p>
+            </div>
+        </div>
+        <div class="weather-main-info">
+            <div class="weather-info-sub-section">
+                <i class="fa-solid fa-droplet"></i>
+                <div class="weather-main-info-sub-sec">
+                    <h3 class="weather-info-heading">Humidity</h3>
+                    <p class="weather-humidity-rate">0</p>
+                </div>
+            </div>
+            <div class="weather-info-sub-section">
+                <i class="fa-solid fa-droplet"></i>
+                <div class="weather-main-info-sub-sec">
+                    <h3 class="weather-info-heading">Feels Like</h3>
+                    <p class="weather-feel-rate">0</p>
+                </div>
+            </div>
+            <div class="weather-info-sub-section">
+                <i class="fa-solid fa-wind"></i>
+                <div class="weather-main-info-sub-sec">
+                    <h3 class="weather-info-heading">Wind Speed</h3>
+                    <p class="weather-wind-rate">0</p>
+                </div>
+            </div>
+            <div class="weather-info-sub-section">
+                <i class="fa-solid fa-gauge-high"></i>
+                <div class="weather-main-info-sub-sec">
+                    <h3 class="weather-info-heading">Pressure</h3>
+                    <p class="weather-pressure-rate">0</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+<script>
+
+let cities = [
+  "Karachi", "Lahore", "Faisalabad", "Rawalpindi", "Multan", "Gujranwala", "Peshawar", "Quetta", "Islamabad", 
+  "Sargodha", "Sialkot", "Bahawalpur", "Sukkur", "Jhang", "Sheikhupura", "Larkana", "Rahim Yar Khan", "Gujrat", 
+  "Kasur", "Mardan", "Sahiwal", "Mirpur Khas", "Okara", "Mingora", "Nawabshah", "Chiniot", "Kot Addu", "Hafizabad", 
+  "Muzaffargarh", "Khanewal", "Dera Ghazi Khan", "Turbat", "Mandi Bahauddin", "Kohat", "Abbotabad", "Dera Ismail Khan", 
+  "Tando Allahyar", "Vehari", "Jhelum", "Shikarpur", "Chishtian", "Charsadda", "Kandhkot", "Hasilpur", "Attock", 
+  "Chaman", "Nowshera", "Muridke", "Pattoki", "Kamalia", "Tando Adam", "Khuzdar", "Gwadar", "Kashmore", "Daska", 
+  "Dadu", "Bannu", "Mianwali", "Jamshoro", "Kamoke", "Kabirwala", "Sanghar", "Hujra Shah Muqeem", "Narowal", 
+  "Bhakkar", "Wah Cantt", "Samundri", "Pano Aqil", "Matiari", "Ghotki", "Sambrial", "Jaranwala", "Haripur", 
+  "Kharian", "Chakwal", "Khairpur", "Jalalpur Jattan", "Taxila", "Toba Tek Singh", "Dina", "Pind Dadan Khan", 
+  "Farooqabad", "Tandlianwala", "Burewala", "Kotri", "Jampur", "Karor Lal Esan", "Saddiqabad",
+  "New York", "London", "Paris", "Tokyo", "Los Angeles", "Berlin", "Sydney", "Dubai", "Rome", "Barcelona",
+  "Hong Kong", "San Francisco", "Singapore", "Istanbul", "Chicago", "Bangkok", "Toronto", "Moscow", "Seoul",
+  "Mumbai", "Rio de Janeiro", "Melbourne", "Buenos Aires", "Amsterdam", "Mexico City", "Lisbon", "Madrid",
+  "Shanghai", "Vienna", "Cairo", "Cape Town", "Dublin", "Athens", "Kuala Lumpur", "Jakarta", "Budapest",
+  "Prague", "Venice", "Sao Paulo", "Brussels", "Stockholm", "Munich", "Warsaw", "Copenhagen", "Helsinki",
+  "Oslo", "Zurich", "Dubai", "Beijing", "Montreal", "Florence", "Milan", "Lima", "Manila", "Bangkok",
+  "Hanoi", "Ho Chi Minh City", "Bogota", "Lagos", "Nairobi", "Johannesburg", "Lima", "Caracas", "Havana",
+  "Santiago", "Reykjavik", "Tel Aviv", "Kyiv", "Warsaw", "Bratislava", "Ljubljana", "Edinburgh", "Glasgow",
+  "Manchester", "Birmingham", "Leeds", "Liverpool", "Bristol", "Sheffield", "Nottingham", "Newcastle",
+  "Leicester", "Cardiff", "Belfast", "Dublin", "Cork", "Galway", "Limerick", "Athlone", "Killarney",
+  "Waterford", "Kilkenny", "Sligo", "Ennis", "Wexford", "Dundalk", "Drogheda"
+];
+
+    let cityname = document.getElementById('search-input');
+    const weathersSearchInputbtn = document.querySelector('.Weather-Search-btn');
+    const weatherCityName = document.querySelector('.weather-city-name');
+    const weatherDiscription = document.querySelector('.discription');
+    const weatherIcon = document.querySelector('.weather-icon');
+    const weatherMainTemp = document.querySelector('.weather-main-temp');
+    const weatherMinTemp = document.querySelector('.weather-min-temp');
+    const weatherMaxTemp = document.querySelector('.weather-max-temp');
+    const weatherHumidityRate = document.querySelector('.weather-humidity-rate');
+    const weatherfeelslikeRate = document.querySelector('.weather-feel-rate');
+    const weatherwindSpeedRate = document.querySelector('.weather-wind-rate');
+    const weatherpressureRate = document.querySelector('.weather-pressure-rate');
+    const resultBox = document.querySelector('.result-box');
+    const WeatherSearch = document.querySelector('.Weather-Search');
+
+
+
+    cityname.onkeyup = function(){
+        let result = [];
+        let input = cityname.value;
+        if (input.length) {
+            result = cities.filter((keywords)=>{
+              return keywords.toLowerCase().includes(input.toLowerCase());
+            });
+            console.log(result);
+        }
+        display(result);
+        if (!resultBox.innerHTML) {
+            resultBox.innerHTML = '';
+        }
+    }
+    function display(result) {
+        let content = result.map((list)=>{
+            return `<li onclick='ShowData(this)'>${list}</li>`;
+        });
+        resultBox.innerHTML = `<ul>${content}</ul>`
+
+    }
+    function ShowData(list){
+        cityname.value = list.innerText;
+        resultBox.innerHTML = '';
+        cityname.focus();
+    }
+
+
+    let city = 'lahor';
+    weathersSearchInputbtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(cityname.value);
+        city = cityname.value;
+        console.log(city);
+        weatherData();
+        cityname.value = "";
+
+    });
+
+    // WeatherSearch.addEventListener('submit',(e)=>{
+    //     // e.preventDefault();
+    //     const weathersSearchInput = document.querySelector('.weather-search-input');
+    //     console.log(weathersSearchInput);
+    //     city = weathersSearchInput.value;
+    // })
+
+    const weatherData = async () => {
+        const weatherAPIURl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=9d4f8fb19e31edf9c6e6a462cb99ef6e`;
+        try {
+            let restoreData = await fetch(weatherAPIURl);
+            let APIData = await restoreData.json()
+            console.log(APIData);
+            const { main, wind, sys, name, weather } = APIData
+            weatherCityName.textContent = name;
+            weatherDiscription.textContent = `${weather[0].main}`;
+            weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather[0].icon}@2x.png">`;
+            weatherMainTemp.innerHTML = `${Math.trunc((main.temp) - 273)}&#176`;
+            weatherMinTemp.innerHTML = `${Math.trunc((main.temp_min) - 273)}&#176`;
+            weatherMaxTemp.innerHTML = `${Math.trunc((main.temp_max) - 273)}&#176`;
+            weatherHumidityRate.innerHTML = `${main.humidity}%`;
+            weatherwindSpeedRate.innerHTML = `${wind.speed}m/s`;
+            weatherpressureRate.innerHTML = `${main.pressure}Pa`;
+            weatherfeelslikeRate.innerHTML = `${Math.trunc((main.feels_like) - 273)}&#176`;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    document.body.addEventListener('load', weatherData());
+
+
+
+</script>
+
+</html>
